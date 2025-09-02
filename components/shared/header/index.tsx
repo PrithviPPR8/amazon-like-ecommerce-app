@@ -40,7 +40,7 @@ const Header = () => {
         <div className="flex items-center px-3 mb-[1px] bg-gray-800">
             <Button
                 variant="ghost"
-                className="header-button flex items-center gap-1 text-base [&_svg]:size-6"
+                className="dark header-button flex items-center gap-1 text-base [&_svg]:size-6"
             >
                 <MenuIcon />
                 All
@@ -50,7 +50,7 @@ const Header = () => {
                     <Link
                         href={menu.href}
                         key={menu.href}
-                        className="mt-2 md:mt-0"
+                        className="header-button !p-2"
                     >
                         {menu.name}
                     </Link>
