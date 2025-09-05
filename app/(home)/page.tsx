@@ -1,8 +1,18 @@
 import HomeCard from "@/components/shared/home/HomeCard";
 import HomeCarousel from "@/components/shared/home/HomeCarousel";
-import { getAllCategories, getProductsForCard } from "@/lib/actions/product.actions";
+import { getAllCategories, getProductsByTag, getProductsForCard } from "@/lib/actions/product.actions";
 import data from "@/lib/data";
 import { toSlug } from "@/lib/utils";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import ProductSlider from "@/components/shared/product/ProductSlider";
 
 export default async function Page() {
 
@@ -59,11 +69,18 @@ export default async function Page() {
     }
   ]
 
+  const todaysDeals = await getProductsByTag({ tag: "todays-deal" });
+
   return (
     <>
       <HomeCarousel items={data.carousels} />
       <div className="md:p-4 md:space-y-4 bg-border">
         <HomeCard cards={cards} />
+        <Card>
+          <CardContent>
+            <ProductSlider title={"Today's Deals"} products={todaysDeals} />
+          </CardContent>
+        </Card>
       </div>
     </>
   );
