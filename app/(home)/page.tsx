@@ -5,14 +5,10 @@ import data from "@/lib/data";
 import { toSlug } from "@/lib/utils";
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
 import ProductSlider from "@/components/shared/product/ProductSlider";
+import BrowsingHistoryList from "@/components/shared/BrowsingHistoryList";
 
 export default async function Page() {
 
@@ -92,6 +88,9 @@ export default async function Page() {
             />
           </CardContent>
         </Card>
+      </div>
+      <div className='p-4 bg-background'>
+        <BrowsingHistoryList />
       </div>
     </>
   );

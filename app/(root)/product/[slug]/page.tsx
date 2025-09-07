@@ -10,6 +10,7 @@ import ProductPrice from "@/components/shared/product/ProductPrice"
 import ProductGallery from "@/components/shared/product/ProductGallery"
 import ProductSlider from "@/components/shared/product/ProductSlider"
 import Rating from "@/components/shared/product/Rating"
+import BrowsingHistoryList from "@/components/shared/BrowsingHistoryList"
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>
@@ -123,6 +124,10 @@ export default async function ProductDetails(props: {
           products={relatedProducts.data}
           title={`Best Sellers in ${product.category}`}
         />
+      </section>
+
+      <section>
+        <BrowsingHistoryList className='mt-10' />
       </section>
     </div>
   )
