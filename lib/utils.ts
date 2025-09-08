@@ -34,3 +34,9 @@ const NUMBER_FORMATTER = new Intl.NumberFormat('en-US')
 export function formatNumber(number: number) {
   return NUMBER_FORMATTER.format(number)
 }
+
+export const round2 = (num: number) =>
+  Math.round((num + Number.EPSILON) * 100) / 100   //takes a number and rounds it to 2 decimal points
+
+export const generateId = () =>
+  Array.from({ length: 24 }, () => Math.floor(Math.random() * 10)).join('')  //create ID's for items in the shopping cart
