@@ -42,6 +42,8 @@ import {
   AVAILABLE_PAYMENT_METHODS,
   DEFAULT_PAYMENT_METHOD,
 } from '@/lib/constants'
+import { createOrder } from '@/lib/actions/order.actions'
+import { toast } from "sonner"
 
 const shippingAddressDefaultValues =
   process.env.NODE_ENV === 'development'
@@ -83,6 +85,7 @@ const CheckoutForm = () => {
     updateItem,
     removeItem,
     setDeliveryDateIndex,
+    clearCart,
   } = useCartStore()
   const isMounted = useIsMounted()
 
@@ -113,7 +116,26 @@ const CheckoutForm = () => {
     useState<boolean>(false)
 
   const handlePlaceOrder = async () => {
-    // TODO: place order
+    const res = await createOrder({
+      items,
+      shippingAddress,
+      expectedDeliveryDate: calculateFutureDate(
+        AVAILABLE_DELIVERY_DATES[deliveryDateIndex!].daysToDeliver
+      ),
+      deliveryDateIndex,
+      paymentMethod,
+      itemsPrice,
+      shippingPrice,
+      taxPrice,
+      totalPrice,
+    })
+    if (!res.success) {
+      toast.error(res.message)
+    } else {
+      toast.success(res.message)
+      clearCart()
+      router.push(`/checkout/${res.data?.orderId}`)
+    }
   }
   const handleSelectPaymentMethod = () => {
     setIsAddressSelected(true)
@@ -157,7 +179,7 @@ const CheckoutForm = () => {
         )}
         {isPaymentMethodSelected && isAddressSelected && (
           <div>
-            <Button onClick={handlePlaceOrder} className='rounded-full w-full'>
+            <Button onClick={handlePlaceOrder} className='rounded-full w-full cursor-pointer'>
               Place Your Order
             </Button>
             <p className='text-xs text-center py-2'>
@@ -653,7 +675,7 @@ const CheckoutForm = () => {
 
               <Card className='hidden md:block '>
                 <CardContent className='p-4 flex flex-col md:flex-row justify-between items-center gap-3'>
-                  <Button onClick={handlePlaceOrder} className='rounded-full'>
+                  <Button onClick={handlePlaceOrder} className='rounded-full cursor-pointer'>
                     Place Your Order
                   </Button>
                   <div className='flex-1'>
