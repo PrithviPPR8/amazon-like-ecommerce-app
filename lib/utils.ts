@@ -21,13 +21,28 @@ export const toSlug = (text: string): string =>
     .replace(/^-+|-+$/g, '')
     .replace(/-+/g, '-')
 
-const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
-  currency: 'USD',
-  style: 'currency',
-  minimumFractionDigits: 2,
-})
-export function formatCurrency(amount: number) {
-  return CURRENCY_FORMATTER.format(amount)
+// const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
+//   currency: 'USD',
+//   style: 'currency',
+//   minimumFractionDigits: 2,
+// })
+// export function formatCurrency(amount: number) {
+//   return CURRENCY_FORMATTER.format(amount)
+// }
+
+export function formatCurrency(
+  amount: number,
+  locale: string = 'en-IN',
+  currency: string = 'INR',
+  minimumFractionDigits: number = 0, // 👈 default no decimals
+  maximumFractionDigits: number = 0  //change this and minimumFraction digits to 2, to show up to 2 decimal places
+) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+    minimumFractionDigits,
+    maximumFractionDigits,
+  }).format(amount)
 }
 
 const NUMBER_FORMATTER = new Intl.NumberFormat('en-US')

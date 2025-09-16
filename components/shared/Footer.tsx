@@ -30,7 +30,7 @@ const Footer = () => {
                 <p> © 2000-2025, {APP_NAME}, Inc. or its affiliates</p>
             </div>
             <div className="mt-8 flex justify-center text-sm text-gray-400">
-                123, Main Street, Anytown, CA, Zip 12345 | +1 (123) 456-7890
+                Maria Complex, Powai Naka, Satara | +91 9876543210
             </div>
         </div>
     </footer>
